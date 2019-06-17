@@ -1,0 +1,7 @@
+post http://localhost:3001/api/persons
+Content-type: application/json
+
+{
+    "name": "matti meikäläinen",
+    "number":"123-123123"
+}
