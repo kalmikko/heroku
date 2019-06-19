@@ -47,9 +47,11 @@ const Row = ({ row }) => {
     )
 }
 
-const Notification = ({ message} ) => {
+const Notification = ({ message } ) => {
     if (message == null){
         return null
+    }else{
+        
     }
     return (
         <div className="message">
@@ -78,7 +80,6 @@ const App = () => {
       event.preventDefault()
       const len = persons.length
       const nameObject = {
-          id: len + 1,
           name: newName, 
           number: newNumber}
       var i 
@@ -87,7 +88,7 @@ const App = () => {
       for(i=0;i<len;i++){
         if(nameObject.name.toLowerCase() === persons[i].name.toLowerCase()){
             nameFound = 1
-            new_id = i
+            new_id = persons[i].id
         }
       }
       if(nameFound === 0){
@@ -96,16 +97,13 @@ const App = () => {
             .then(data => {
                 setPersons(persons.concat(data))
                 setNewName('')
-                setMessage(`${newName} added`)
-                setTimeout(() => {setMessage(null)},2000)
             }).catch(error => {
-                    console.log(error.response.data)
                 }
             )
+            setTimeout(() => {window.location.reload(true)},500)
       }else{
           if(window.confirm(`${newName} is already in phonebook, replace old number with new?`)){
             const newObject = {
-                id: new_id,
                 name: newName, 
                 number: newNumber}
             phoneService.update(new_id, newObject)
@@ -120,8 +118,9 @@ const App = () => {
                         }
                     })
             })
-          }
-      }
+        }
+        window.location.reload(true)
+    }
   }
 
   useEffect(() => {
